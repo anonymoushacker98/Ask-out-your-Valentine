@@ -64,14 +64,10 @@
     let fontSize = 20;
     let yesButtonScale = 1;
 
-    const imagePaths = [
-      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Cute Duck (Used for all No button clicks)
-      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
-      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
-      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
-      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
-    ];
+    // Image source for "No" responses
+    const imagePath = "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif"; // Same GIF for all "No" responses
 
+    // List of "No" response messages
     const noMessages = [
       "No", "Are you sure?", "Last chance", "Tricia please", "Don't do this to me :(",
       "You're breaking my heart", "OMY DAYS JUST SAY YES...", "OK LAST TIME FR!!!",
@@ -80,34 +76,35 @@
     ];
 
     noButton.addEventListener('click', function () {
-      if (noClickCount < imagePaths.length - 1) {
-        noClickCount++;
-        imageDisplay.src = imagePaths[noClickCount];
-        buttonHeight += 35;
-        buttonWidth += 35;
-        fontSize += 25;
-        yesButton.style.height = `${buttonHeight}px`;
-        yesButton.style.width = `${buttonWidth}px`;
-        yesButton.style.fontSize = `${fontSize}px`;
+      // Cycle through all messages, loop back to the start once reaching the end
+      noClickCount = (noClickCount + 1) % noMessages.length;
 
-        if (noClickCount < noMessages.length) {
-          noButton.textContent = noMessages[noClickCount];
-        } else {
-          noButton.textContent = "TRICIA JUST CLICK YES!!!!!"; // Keep this message
-        }
-      } else {
-        noButton.style.display = 'none'; // Hide the button once all options are exhausted
+      // Show the same image for all "No" responses
+      imageDisplay.src = imagePath;
+
+      // Update button height, width, and font size on each click
+      buttonHeight += 35;
+      buttonWidth += 35;
+      fontSize += 25;
+      yesButton.style.height = `${buttonHeight}px`;
+      yesButton.style.width = `${buttonWidth}px`;
+      yesButton.style.fontSize = `${fontSize}px`;
+
+      // Change the message
+      noButton.textContent = noMessages[noClickCount];
+
+      // If the final message is reached, hide the "No" button
+      if (noClickCount === noMessages.length - 1) {
+        noButton.style.display = 'none';  // Hide the "No" button
       }
     });
 
     yesButton.addEventListener('click', () => {
-      yesButtonScale += 0.1; // Scale by 10% each click
-      yesButton.style.transform = `scale(${yesButtonScale})`;
-
-      imageDisplay.src = "https://i.pinimg.com/originals/86/59/2b/86592b3baa46ba35b6ca9c9452e773a6.gif"; // New GIF for Yes button
-      valentineQuestion.textContent = "Yayyy!! :3";
-      responseButtons.style.display = 'none'; // Hide both buttons after clicking Yes
-      confetti();
+      // Change the image and message for "Yes" button
+      imageDisplay.src = 'https://i.pinimg.com/originals/86/59/2b/86592b3baa46ba35b6ca9c9452e773a6.gif'; // Custom GIF for "Yes"
+      valentineQuestion.textContent = "Yayyy!! :3"; // Change the question text
+      responseButtons.style.display = 'none'; // Hide both buttons
+      confetti(); // Trigger confetti animation
     });
   </script>  
 </body>
