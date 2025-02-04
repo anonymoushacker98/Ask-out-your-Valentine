@@ -31,10 +31,9 @@
 <body class="gradient-background">
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
-      <img id="imageDisplay" src="https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif" 
-           alt="Cute duck GIF" 
-           class="rounded-md h-[300px]" 
-           style="object-fit: cover;" />
+      <!-- Replaced the cute duck gif with the Google Drive image link -->
+      <img id="imageDisplay" src="https://drive.google.com/uc?id=1euxxCRF9IEWuuCDDAFv06iYdxyY5uVW3" 
+           alt="Personalized Image" class="rounded-md h-[300px]" style="object-fit: cover;" />
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine?</h2>
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
         <button id="yesButton"
@@ -51,59 +50,41 @@
 
   <script type="module">
     import confetti from 'https://cdn.skypack.dev/canvas-confetti';
-
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
     const imageDisplay = document.getElementById('imageDisplay');
     const valentineQuestion = document.getElementById('valentineQuestion');
     const responseButtons = document.getElementById('responseButtons');
-
+  
     let noClickCount = 0;
-    let buttonHeight = 48;
+    let buttonHeight = 48; // Starting height in pixels
     let buttonWidth = 80;
-    let fontSize = 20;
-
-    // Image source for "No" responses
-    const imagePath = "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif"; // Same GIF for all "No" responses
-
-    // List of "No" response messages (12 messages total)
-    const noMessages = [
-      "No", "Are you sure?", "Last chance", "Tricia please", "Don't do this to me :(",
-      "You're breaking my heart", "OMY DAYS JUST SAY YES...", "OK LAST TIME FR!!!",
-      "Fine, no more Valentines", "Okay one last chance frfr this time",
+    let fontSize = 20; // Starting font size in pixels
+    const noResponses = [
+      "No", "Are you sure?", "Last chance", "Tricia please", "Don't do this to me :(", 
+      "You're breaking my heart", "OMY DAYS JUST SAY YES...", "OK LAST TIME FR!!!", 
+      "Fine, no more Valentines", "Okay one last chance frfr this time", 
       "Click me if you're lame", "TRICIA JUST CLICK YES!!!!!"
     ];
-
-    noButton.addEventListener('click', function () {
-      // Increment the message index
-      if (noClickCount < noMessages.length) {
-        // Show the same image for all "No" responses
-        imageDisplay.src = imagePath;
-
-        // Update the message
-        noButton.textContent = noMessages[noClickCount];
-
-        // Update button size
-        buttonHeight += 35;
-        buttonWidth += 35;
-        fontSize += 25;
-        yesButton.style.height = `${buttonHeight}px`;
-        yesButton.style.width = `${buttonWidth}px`;
-        yesButton.style.fontSize = `${fontSize}px`;
-
-        // If the last message, hide the "No" button
-        if (noClickCount === noMessages.length - 1) {
-          noButton.style.display = 'none';  // Hide the "No" button after the last message
-        }
-        
-        // Increment count
+  
+    noButton.addEventListener('click', function() {
+      if (noClickCount < noResponses.length - 1) {
         noClickCount++;
+        imageDisplay.src = "https://drive.google.com/uc?id=1euxxCRF9IEWuuCDDAFv06iYdxyY5uVW3"; // Always show the Google Drive image
+        buttonHeight += 35; // Increase height by 5px on each click
+        buttonWidth += 35;
+        fontSize += 25; // Increase font size by 1px on each click
+        yesButton.style.height = `${buttonHeight}px`; // Update button height
+        yesButton.style.width = `${buttonWidth}px`;
+        yesButton.style.fontSize = `${fontSize}px`; // Update font size
+        if (noClickCount < noResponses.length) {
+          noButton.textContent = noResponses[noClickCount]; // Update text on button
+        }
       }
     });
-
+  
     yesButton.addEventListener('click', () => {
-      // Change the image and message for "Yes" button
-      imageDisplay.src = 'https://i.pinimg.com/originals/86/59/2b/86592b3baa46ba35b6ca9c9452e773a6.gif'; // Custom GIF for "Yes"
+      imageDisplay.src = 'https://drive.google.com/uc?id=1euxxCRF9IEWuuCDDAFv06iYdxyY5uVW3'; // Change to image7.gif (you can replace with your new image)
       valentineQuestion.textContent = "Yayyy!! :3"; // Change the question text
       responseButtons.style.display = 'none'; // Hide both buttons
       confetti(); // Trigger confetti animation
