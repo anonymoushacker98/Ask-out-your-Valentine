@@ -1,103 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentine's Day</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .gradient-background {
-      background: linear-gradient(180deg, rgba(255, 208, 229, 1) 0%, rgba(255, 232, 242, 1) 36%, rgba(255, 255, 255, 1) 100%);
-    }
+<script type="module">
+  import confetti from 'https://cdn.skypack.dev/canvas-confetti';
 
-    .bounce2 {
-      animation: bounce2 2s ease infinite;
-    }
+  const yesButton = document.getElementById('yesButton');
+  const noButton = document.getElementById('noButton');
+  const imageDisplay = document.getElementById('imageDisplay');
+  const valentineQuestion = document.getElementById('valentineQuestion');
+  const responseButtons = document.getElementById('responseButtons');
 
-    @keyframes bounce2 {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-20px); }
-      60% { transform: translateY(-10px); }
-    }
-  </style>
-</head>
-<body class="gradient-background">
-  <div class="flex items-center justify-center h-screen">
-    <div class="flex flex-col items-center p-4">
-      <img id="imageDisplay" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmpuNHR4ZzR6MTlvMWF2Z3E5dG93NmZ5YXRpMjl4ejdtNm5xOGJkdiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3ohs7KViF9DMwHZXt6/giphy.gif" 
-           alt="Cute duck GIF" 
-           class="rounded-md h-[300px]" 
-           style="object-fit: cover;" />
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine?</h2>
-      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
-        <button id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
-          Yes
-        </button>
-        <button id="noButton"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
-          No
-        </button>
-      </div>
-    </div>
-  </div>
+  let noClickCount = 0;
+  let buttonHeight = 48;
+  let buttonWidth = 80;
+  let fontSize = 20;
 
-  <script type="module">
-    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+  const imagePaths = [
+    "https://media.giphy.com/media/3ohs7KViF9DMwHZXt6/giphy.gif", // Cute Duck (Start)
+    "https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif", // Sad crying cat
+    "https://media.giphy.com/media/l2JJKs3I69qfaQleE/giphy.gif", // Puppy eyes
+    "https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif", // Sad bear waving
+    "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif", // Heartbroken Pikachu
+    "https://media.giphy.com/media/xT5LMV0HsaWRSPU3aU/giphy.gif", // Crying panda
+    "https://media.giphy.com/media/5xaOcLT2GQO8q3j9n9m/giphy.gif", // Begging puppy
+    "https://media.giphy.com/media/1BXa2alBjrCXC/giphy.gif", // Crying yellow blob
+    "https://media.giphy.com/media/26FL6yBvdBv9vUbp6/giphy.gif", // Crying bunny
+  ];
 
-    const yesButton = document.getElementById('yesButton');
-    const noButton = document.getElementById('noButton');
-    const imageDisplay = document.getElementById('imageDisplay');
-    const valentineQuestion = document.getElementById('valentineQuestion');
-    const responseButtons = document.getElementById('responseButtons');
+  const noMessages = [
+    "No", "Are you sure?", "Last chance", "Tricia please", "Don't do this to me :(",
+    "You're breaking my heart", "OMY DAYS JUST SAY YES...", "OK LAST TIME FR!!!",
+    "Fine, no more Valentines", "Okay one last chance frfr this time",
+    "Click me if you're lame", "TRICIA JUST CLICK YES!!!!!"
+  ];
 
-    let noClickCount = 0;
-    let buttonHeight = 48;
-    let buttonWidth = 80;
-    let fontSize = 20;
+  noButton.addEventListener('click', function () {
+    if (noClickCount < imagePaths.length - 1) { // Ensure we stay within array bounds
+      noClickCount++;
+      imageDisplay.src = imagePaths[noClickCount]; // Update image
+      buttonHeight += 35;
+      buttonWidth += 35;
+      fontSize += 25;
+      yesButton.style.height = `${buttonHeight}px`;
+      yesButton.style.width = `${buttonWidth}px`;
+      yesButton.style.fontSize = `${fontSize}px`;
 
-    const imagePaths = [
-      "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmpuNHR4ZzR6MTlvMWF2Z3E5dG93NmZ5YXRpMjl4ejdtNm5xOGJkdiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/3ohs7KViF9DMwHZXt6/giphy.gif", // Cute Duck
-      "https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif", // Sad crying cat
-      "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXQzNnY2d3ppM3JldWkxcjE0MmY3eDBwaGZxY3V5bmdjN2I2bzVmeSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/l2JJKs3I69qfaQleE/giphy.gif", // Puppy eyes
-      "https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif", // Sad bear waving
-      "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif", // Heartbroken Pikachu
-      "https://media.giphy.com/media/xT5LMV0HsaWRSPU3aU/giphy.gif", // Crying panda
-      "https://media.giphy.com/media/5xaOcLT2GQO8q3j9n9m/giphy.gif"  // Begging puppy
-    ];
-
-    const noMessages = [
-      "No", "Are you sure?", "Last chance", "Tricia please", "Don't do this to me :(", 
-      "You're breaking my heart", "OMY DAYS JUST SAY YES...", "OK LAST TIME FR!!!", 
-      "Fine, no more Valentines", "Okay one last chance frfr this time", 
-      "Click me if you're lame", "TRICIA JUST CLICK YES!!!!!"
-    ];
-
-    noButton.addEventListener('click', function() {
-      if (noClickCount < imagePaths.length - 1) {
-        noClickCount++;
-        imageDisplay.src = imagePaths[noClickCount]; // Ensure valid index
-        buttonHeight += 35;
-        buttonWidth += 35;
-        fontSize += 25;
-        yesButton.style.height = `${buttonHeight}px`;
-        yesButton.style.width = `${buttonWidth}px`;
-        yesButton.style.fontSize = `${fontSize}px`;
-
-        if (noClickCount < noMessages.length) {
-          noButton.textContent = noMessages[noClickCount];
-        }
-      } else {
-        noButton.textContent = "You're out of options..."; // Message when max reached
+      if (noClickCount < noMessages.length) {
+        noButton.textContent = noMessages[noClickCount]; // Update button text
       }
-    });
+    } else {
+      noButton.textContent = "You're out of options..."; // Final message
+    }
+  });
 
-    yesButton.addEventListener('click', () => {
-      imageDisplay.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnAzNTFqZm9nNDBqMXdmMTV1NjNpaTNkbGJ6MjBhYWl6NjlzYXZxNCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/YTbZzCkRQbJLy/giphy.gif"; // Happy celebration GIF
-      valentineQuestion.textContent = "Yayyy!! :3";
-      responseButtons.style.display = 'none';
-      confetti();
-    });
-  </script>  
-</body>
-</html>
+  yesButton.addEventListener('click', () => {
+    imageDisplay.src = "https://media.giphy.com/media/YTbZzCkRQbJLy/giphy.gif"; // Happy celebration GIF
+    valentineQuestion.textContent = "Yayyy!! :3";
+    responseButtons.style.display = 'none';
+    confetti();
+  });
+</script>
