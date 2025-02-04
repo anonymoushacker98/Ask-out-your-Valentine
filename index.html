@@ -31,7 +31,7 @@
 <body class="gradient-background">
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
-      <img id="imageDisplay" src="https://media.giphy.com/media/3ohs7KViF9DMwHZXt6/giphy.gif" 
+      <img id="imageDisplay" src="https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif" 
            alt="Cute duck GIF" 
            class="rounded-md h-[300px]" 
            style="object-fit: cover;" />
@@ -51,7 +51,7 @@
 
   <script type="module">
     import confetti from 'https://cdn.skypack.dev/canvas-confetti';
-    
+
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
     const imageDisplay = document.getElementById('imageDisplay');
@@ -62,17 +62,14 @@
     let buttonHeight = 48;
     let buttonWidth = 80;
     let fontSize = 20;
+    let yesButtonScale = 1;
 
     const imagePaths = [
-      "https://media.giphy.com/media/3ohs7KViF9DMwHZXt6/giphy.gif", // Cute Duck
-      "https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif", // Sad crying cat
-      "https://media.giphy.com/media/l2JJKs3I69qfaQleE/giphy.gif", // Puppy eyes
-      "https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif", // Sad bear waving
-      "https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif", // Heartbroken Pikachu
-      "https://media.giphy.com/media/xT5LMV0HsaWRSPU3aU/giphy.gif", // Crying panda
-      "https://media.giphy.com/media/5xaOcLT2GQO8q3j9n9m/giphy.gif", // Begging puppy
-      "https://media.giphy.com/media/1BXa2alBjrCXC/giphy.gif", // Crying yellow blob
-      "https://media.giphy.com/media/26FL6yBvdBv9vUbp6/giphy.gif"  // Crying bunny
+      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Cute Duck (Used for all No button clicks)
+      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
+      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
+      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
+      "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif", // Repeat same GIF for No clicks
     ];
 
     const noMessages = [
@@ -83,9 +80,9 @@
     ];
 
     noButton.addEventListener('click', function () {
-      if (noClickCount < imagePaths.length - 1) { // Make sure noClickCount doesn't exceed imagePaths length
+      if (noClickCount < imagePaths.length - 1) {
         noClickCount++;
-        imageDisplay.src = imagePaths[noClickCount]; // Update image
+        imageDisplay.src = imagePaths[noClickCount];
         buttonHeight += 35;
         buttonWidth += 35;
         fontSize += 25;
@@ -93,22 +90,23 @@
         yesButton.style.width = `${buttonWidth}px`;
         yesButton.style.fontSize = `${fontSize}px`;
 
-        // Update button text with noMessages array
         if (noClickCount < noMessages.length) {
           noButton.textContent = noMessages[noClickCount];
         } else {
-          noButton.textContent = "You're out of options!";
+          noButton.textContent = "TRICIA JUST CLICK YES!!!!!"; // Keep this message
         }
       } else {
-        noButton.disabled = true; // Disable the button once all options are shown
-        noButton.textContent = "You're out of options!";
+        noButton.style.display = 'none'; // Hide the button once all options are exhausted
       }
     });
 
     yesButton.addEventListener('click', () => {
-      imageDisplay.src = "https://media.giphy.com/media/YTbZzCkRQbJLy/giphy.gif"; // Happy celebration GIF
+      yesButtonScale += 0.1; // Scale by 10% each click
+      yesButton.style.transform = `scale(${yesButtonScale})`;
+
+      imageDisplay.src = "https://i.pinimg.com/originals/86/59/2b/86592b3baa46ba35b6ca9c9452e773a6.gif"; // New GIF for Yes button
       valentineQuestion.textContent = "Yayyy!! :3";
-      responseButtons.style.display = 'none';
+      responseButtons.style.display = 'none'; // Hide both buttons after clicking Yes
       confetti();
     });
   </script>  
