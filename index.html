@@ -76,8 +76,10 @@
     ];
 
     noButton.addEventListener('click', function () {
-      // Cycle through all messages, loop back to the start once reaching the end
-      noClickCount = (noClickCount + 1) % noMessages.length;
+      // Increment the message index and cycle back if it exceeds the length
+      if (noClickCount < noMessages.length - 1) {
+        noClickCount++;
+      }
 
       // Show the same image for all "No" responses
       imageDisplay.src = imagePath;
@@ -90,7 +92,7 @@
       yesButton.style.width = `${buttonWidth}px`;
       yesButton.style.fontSize = `${fontSize}px`;
 
-      // Change the message
+      // Change the message for "No" button
       noButton.textContent = noMessages[noClickCount];
 
       // If the final message is reached, hide the "No" button
