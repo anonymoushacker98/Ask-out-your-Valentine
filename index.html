@@ -62,12 +62,11 @@
     let buttonHeight = 48;
     let buttonWidth = 80;
     let fontSize = 20;
-    let yesButtonScale = 1;
 
     // Image source for "No" responses
     const imagePath = "https://i.pinimg.com/originals/93/c4/d7/93c4d735209e31b407210a1dbebd16c3.gif"; // Same GIF for all "No" responses
 
-    // List of "No" response messages
+    // List of "No" response messages (12 messages total)
     const noMessages = [
       "No", "Are you sure?", "Last chance", "Tricia please", "Don't do this to me :(",
       "You're breaking my heart", "OMY DAYS JUST SAY YES...", "OK LAST TIME FR!!!",
@@ -76,28 +75,29 @@
     ];
 
     noButton.addEventListener('click', function () {
-      // Increment the message index and cycle back if it exceeds the length
-      if (noClickCount < noMessages.length - 1) {
+      // Increment the message index
+      if (noClickCount < noMessages.length) {
+        // Show the same image for all "No" responses
+        imageDisplay.src = imagePath;
+
+        // Update the message
+        noButton.textContent = noMessages[noClickCount];
+
+        // Update button size
+        buttonHeight += 35;
+        buttonWidth += 35;
+        fontSize += 25;
+        yesButton.style.height = `${buttonHeight}px`;
+        yesButton.style.width = `${buttonWidth}px`;
+        yesButton.style.fontSize = `${fontSize}px`;
+
+        // If the last message, hide the "No" button
+        if (noClickCount === noMessages.length - 1) {
+          noButton.style.display = 'none';  // Hide the "No" button after the last message
+        }
+        
+        // Increment count
         noClickCount++;
-      }
-
-      // Show the same image for all "No" responses
-      imageDisplay.src = imagePath;
-
-      // Update button height, width, and font size on each click
-      buttonHeight += 35;
-      buttonWidth += 35;
-      fontSize += 25;
-      yesButton.style.height = `${buttonHeight}px`;
-      yesButton.style.width = `${buttonWidth}px`;
-      yesButton.style.fontSize = `${fontSize}px`;
-
-      // Change the message for "No" button
-      noButton.textContent = noMessages[noClickCount];
-
-      // If the final message is reached, hide the "No" button
-      if (noClickCount === noMessages.length - 1) {
-        noButton.style.display = 'none';  // Hide the "No" button
       }
     });
 
